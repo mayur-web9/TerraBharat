@@ -12,11 +12,11 @@ const Dashboard = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [destinations, setDestinations] = useState<AiDestination[]>([]);
   const [marketplaces, setMarketplaces] = useState<Marketplace[]>([]);
-  
+
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
   const [editingDestination, setEditingDestination] = useState<AiDestination | null>(null);
   const [editingMarketplace, setEditingMarketplace] = useState<Marketplace | null>(null);
-  
+
   const [isAddingEvent, setIsAddingEvent] = useState(false);
   const [isAddingDestination, setIsAddingDestination] = useState(false);
   const [isAddingMarketplace, setIsAddingMarketplace] = useState(false);
@@ -24,7 +24,7 @@ const Dashboard = () => {
   useEffect(() => {
     // Load feedback
     const storedFeedback = JSON.parse(localStorage.getItem('jharYatraFeedback') || '[]');
-    setFeedbacks(storedFeedback.sort((a: FeedbackType, b: FeedbackType) => 
+    setFeedbacks(storedFeedback.sort((a: FeedbackType, b: FeedbackType) =>
       new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     ));
 
@@ -95,13 +95,13 @@ const Dashboard = () => {
   const handleUpdateDestination = (updatedDest: AiDestination) => {
     let newDests;
     const existingIndex = destinations.findIndex(d => d.name === updatedDest.name);
-    
+
     if (isAddingDestination || existingIndex === -1) {
       newDests = [...destinations, updatedDest];
     } else {
       newDests = destinations.map(d => d.name === updatedDest.name ? updatedDest : d);
     }
-    
+
     setDestinations(newDests);
     localStorage.setItem('jharYatraDestinations', JSON.stringify(newDests));
     setEditingDestination(null);
@@ -193,7 +193,7 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content - Scrollable Area */}
           <div className="lg:col-span-2 space-y-8 overflow-y-auto max-h-[70vh] pr-2 custom-scrollbar">
-            
+
             {/* Destinations Section */}
             <section className="bg-offwhite dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
               <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center">
@@ -201,7 +201,7 @@ const Dashboard = () => {
                   <span className="text-amber-500 text-2xl">🏰</span>
                   Top Destinations
                 </h2>
-                <button 
+                <button
                   onClick={() => {
                     setIsAddingDestination(true);
                     setEditingDestination({ name: '', emoji: '📍', tag: '', desc: '', location: '', image: '' });
@@ -245,7 +245,7 @@ const Dashboard = () => {
                   <span className="text-orange-500 text-2xl">🛍️</span>
                   Marketplaces
                 </h2>
-                <button 
+                <button
                   onClick={() => {
                     setIsAddingMarketplace(true);
                     setEditingMarketplace({ id: '', name: '', description: '', location: '', image: '', tags: [] });
@@ -291,7 +291,7 @@ const Dashboard = () => {
                   </svg>
                   Upcoming Events
                 </h2>
-                <button 
+                <button
                   onClick={() => {
                     setIsAddingEvent(true);
                     setEditingEvent({ id: '', name: '', description: '', category: 'festival', date_start: '', date_end: '', location: '', image_url: '', created_at: '' });
@@ -371,15 +371,14 @@ const Dashboard = () => {
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className={`px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${
-                              feedback.category === 'bug' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
-                              feedback.category === 'suggestion' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
-                              feedback.category === 'praise' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' :
-                              'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-400'
-                            }`}>
+                            <span className={`px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${feedback.category === 'bug' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
+                                feedback.category === 'suggestion' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
+                                  feedback.category === 'praise' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' :
+                                    'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-400'
+                              }`}>
                               {feedback.category}
                             </span>
-                            <button 
+                            <button
                               onClick={() => deleteFeedback(feedback.id)}
                               className="text-gray-400 hover:text-red-500 transition-colors"
                             >
@@ -432,19 +431,19 @@ const Dashboard = () => {
               </button>
             </div>
             <form onSubmit={(e) => { e.preventDefault(); handleUpdateEvent(editingEvent); }} className="p-6 space-y-4">
-              <input type="text" placeholder="Event Name" required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800 outline-none" value={editingEvent.name} onChange={(e) => setEditingEvent({...editingEvent, name: e.target.value})} />
-              <textarea placeholder="Description" required rows={3} className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800 outline-none resize-none" value={editingEvent.description} onChange={(e) => setEditingEvent({...editingEvent, description: e.target.value})} />
+              <input type="text" placeholder="Event Name" required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800 outline-none" value={editingEvent.name} onChange={(e) => setEditingEvent({ ...editingEvent, name: e.target.value })} />
+              <textarea placeholder="Description" required rows={3} className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800 outline-none resize-none" value={editingEvent.description} onChange={(e) => setEditingEvent({ ...editingEvent, description: e.target.value })} />
               <div className="grid grid-cols-2 gap-4">
-                <input type="date" required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingEvent.date_start} onChange={(e) => setEditingEvent({...editingEvent, date_start: e.target.value})} />
-                <input type="date" required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingEvent.date_end} onChange={(e) => setEditingEvent({...editingEvent, date_end: e.target.value})} />
+                <input type="date" required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingEvent.date_start} onChange={(e) => setEditingEvent({ ...editingEvent, date_start: e.target.value })} />
+                <input type="date" required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingEvent.date_end} onChange={(e) => setEditingEvent({ ...editingEvent, date_end: e.target.value })} />
               </div>
-              <input type="text" placeholder="Location" required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingEvent.location} onChange={(e) => setEditingEvent({...editingEvent, location: e.target.value})} />
+              <input type="text" placeholder="Location" required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingEvent.location} onChange={(e) => setEditingEvent({ ...editingEvent, location: e.target.value })} />
               <div className="space-y-2">
                 <p className="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Image (URL or Asset Path)</p>
-                <input type="text" placeholder="e.g. /assets/events/fest1.jpg or https://..." className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingEvent.image_url} onChange={(e) => setEditingEvent({...editingEvent, image_url: e.target.value})} />
+                <input type="text" placeholder="e.g. /assets/events/fest1.jpg or https://..." className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingEvent.image_url} onChange={(e) => setEditingEvent({ ...editingEvent, image_url: e.target.value })} />
                 <div className="flex flex-wrap gap-2 mt-1">
-                  {['fest1.jpg', 'fest2.jpg', 'fest3.jpg', 'fest4.jpg', 'rohini.jpg', 'bandna.jpg', 'mysore_dussehra.jpg', 'pushkar_fair.jpg', 'hornbill_festival.jpg'].map(asset => (
-                    <button key={asset} type="button" onClick={() => setEditingEvent({...editingEvent, image_url: `/assets/events/${asset}`})} className="text-[10px] px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-md hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors">
+                  {['sarhul_fest1.jpg', 'karma_fest.jpg', 'tusu_fest.jpg', 'Chhat_fest.jpg', 'rohini.jpg', 'bandna.jpg', 'mysore_dussehra.jpg', 'pushkar_fair.jpg', 'hornbill_festival.jpg'].map(asset => (
+                    <button key={asset} type="button" onClick={() => setEditingEvent({ ...editingEvent, image_url: `/assets/events/${asset}` })} className="text-[10px] px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-md hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors">
                       {asset}
                     </button>
                   ))}
@@ -470,19 +469,19 @@ const Dashboard = () => {
               </button>
             </div>
             <form onSubmit={(e) => { e.preventDefault(); handleUpdateDestination(editingDestination); }} className="p-6 space-y-4">
-              <input type="text" placeholder="Name" required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800 outline-none" value={editingDestination.name} onChange={(e) => setEditingDestination({...editingDestination, name: e.target.value})} />
+              <input type="text" placeholder="Name" required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800 outline-none" value={editingDestination.name} onChange={(e) => setEditingDestination({ ...editingDestination, name: e.target.value })} />
               <div className="grid grid-cols-2 gap-4">
-                <input type="text" placeholder="Emoji (e.g. 🏰)" className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingDestination.emoji} onChange={(e) => setEditingDestination({...editingDestination, emoji: e.target.value})} />
-                <input type="text" placeholder="Tag (e.g. Heritage)" className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingDestination.tag} onChange={(e) => setEditingDestination({...editingDestination, tag: e.target.value})} />
+                <input type="text" placeholder="Emoji (e.g. 🏰)" className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingDestination.emoji} onChange={(e) => setEditingDestination({ ...editingDestination, emoji: e.target.value })} />
+                <input type="text" placeholder="Tag (e.g. Heritage)" className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingDestination.tag} onChange={(e) => setEditingDestination({ ...editingDestination, tag: e.target.value })} />
               </div>
-              <textarea placeholder="Description" required rows={3} className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800 outline-none resize-none" value={editingDestination.desc} onChange={(e) => setEditingDestination({...editingDestination, desc: e.target.value})} />
-              <input type="text" placeholder="Location" required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingDestination.location} onChange={(e) => setEditingDestination({...editingDestination, location: e.target.value})} />
+              <textarea placeholder="Description" required rows={3} className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800 outline-none resize-none" value={editingDestination.desc} onChange={(e) => setEditingDestination({ ...editingDestination, desc: e.target.value })} />
+              <input type="text" placeholder="Location" required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingDestination.location} onChange={(e) => setEditingDestination({ ...editingDestination, location: e.target.value })} />
               <div className="space-y-2">
                 <p className="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Image (URL or Asset Path)</p>
-                <input type="text" placeholder="e.g. /assets/destinations/taj_mahal.jpg or https://..." required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingDestination.image} onChange={(e) => setEditingDestination({...editingDestination, image: e.target.value})} />
+                <input type="text" placeholder="e.g. /assets/destinations/taj_mahal.jpg or https://..." required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingDestination.image} onChange={(e) => setEditingDestination({ ...editingDestination, image: e.target.value })} />
                 <div className="flex flex-wrap gap-2 mt-1">
                   {['Taj_mahal.jpg', 'varanasi_ghats.jpg', 'kerala_backwaters.jpg', 'hampi_ruins.jpg', 'leh_ladakh.jpg', 'golden_temple.jpg', 'munnar_tea_gardens.jpg', 'mysore_palace.jpg', 'amer_fort.jpg', 'konark_sun_temple.jpg', 'ranthambore.jpg', 'victoria_memorial.jpg', 'Download3.jpg', 'download2.jpg', 'download.jpg', 'download4.jpg', 'lake.jpg', 'Hill.jpg'].map(asset => (
-                    <button key={asset} type="button" onClick={() => setEditingDestination({...editingDestination, image: `/assets/destinations/${asset}`})} className="text-[10px] px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-md hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors">
+                    <button key={asset} type="button" onClick={() => setEditingDestination({ ...editingDestination, image: `/assets/destinations/${asset}` })} className="text-[10px] px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-md hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors">
                       {asset}
                     </button>
                   ))}
@@ -508,21 +507,21 @@ const Dashboard = () => {
               </button>
             </div>
             <form onSubmit={(e) => { e.preventDefault(); handleUpdateMarketplace(editingMarketplace); }} className="p-6 space-y-4">
-              <input type="text" placeholder="Market Name" required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800 outline-none" value={editingMarketplace.name} onChange={(e) => setEditingMarketplace({...editingMarketplace, name: e.target.value})} />
-              <textarea placeholder="Description" required rows={3} className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800 outline-none resize-none" value={editingMarketplace.description} onChange={(e) => setEditingMarketplace({...editingMarketplace, description: e.target.value})} />
-              <input type="text" placeholder="Location" required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingMarketplace.location} onChange={(e) => setEditingMarketplace({...editingMarketplace, location: e.target.value})} />
+              <input type="text" placeholder="Market Name" required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800 outline-none" value={editingMarketplace.name} onChange={(e) => setEditingMarketplace({ ...editingMarketplace, name: e.target.value })} />
+              <textarea placeholder="Description" required rows={3} className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800 outline-none resize-none" value={editingMarketplace.description} onChange={(e) => setEditingMarketplace({ ...editingMarketplace, description: e.target.value })} />
+              <input type="text" placeholder="Location" required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingMarketplace.location} onChange={(e) => setEditingMarketplace({ ...editingMarketplace, location: e.target.value })} />
               <div className="space-y-2">
                 <p className="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Image (URL or Asset Path)</p>
-                <input type="text" placeholder="e.g. /assets/marketplaces/dilli_haat.jpg or https://..." required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingMarketplace.image} onChange={(e) => setEditingMarketplace({...editingMarketplace, image: e.target.value})} />
+                <input type="text" placeholder="e.g. /assets/marketplaces/dilli_haat.jpg or https://..." required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingMarketplace.image} onChange={(e) => setEditingMarketplace({ ...editingMarketplace, image: e.target.value })} />
                 <div className="flex flex-wrap gap-2 mt-1">
                   {['dilli_haat.jpg', 'colaba_causeway.jpg', 'johari_bazaar.jpg', 'anjuna_flea_market.jpg', 'laad_bazaar.jpg', 'floating_market.jpg', 'police_bazar.jpg', 'janpath_market.jpg', 'pondy_bazaar.jpg'].map(asset => (
-                    <button key={asset} type="button" onClick={() => setEditingMarketplace({...editingMarketplace, image: `/assets/marketplaces/${asset}`})} className="text-[10px] px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-md hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors">
+                    <button key={asset} type="button" onClick={() => setEditingMarketplace({ ...editingMarketplace, image: `/assets/marketplaces/${asset}` })} className="text-[10px] px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-md hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors">
                       {asset}
                     </button>
                   ))}
                 </div>
               </div>
-              <input type="text" placeholder="Tags (comma separated)" className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingMarketplace.tags.join(', ')} onChange={(e) => setEditingMarketplace({...editingMarketplace, tags: e.target.value.split(',').map(t => t.trim())})} />
+              <input type="text" placeholder="Tags (comma separated)" className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingMarketplace.tags.join(', ')} onChange={(e) => setEditingMarketplace({ ...editingMarketplace, tags: e.target.value.split(',').map(t => t.trim()) })} />
               <div className="pt-4 flex gap-3">
                 <button type="button" onClick={() => setEditingMarketplace(null)} className="flex-1 py-3 rounded-xl bg-gray-100 dark:bg-gray-800 font-bold">Cancel</button>
                 <button type="submit" className="flex-1 py-3 rounded-xl bg-emerald-600 text-white font-bold">Save</button>
