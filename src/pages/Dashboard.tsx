@@ -481,7 +481,7 @@ const Dashboard = () => {
                 <p className="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Image (URL or Asset Path)</p>
                 <input type="text" placeholder="e.g. /assets/destinations/taj_mahal.jpg or https://..." required className="w-full px-4 py-2 rounded-xl border dark:bg-gray-800" value={editingDestination.image} onChange={(e) => setEditingDestination({...editingDestination, image: e.target.value})} />
                 <div className="flex flex-wrap gap-2 mt-1">
-                  {['taj_mahal.jpg', 'varanasi_ghats.jpg', 'kerala_backwaters.jpg', 'hampi_ruins.jpg', 'leh_ladakh.jpg', 'golden_temple.jpg', 'munnar_tea_gardens.jpg', 'mysore_palace.jpg', 'amer_fort.jpg', 'konark_sun_temple.jpg', 'ranthambore.jpg', 'victoria_memorial.jpg', 'Download3.jpg', 'download2.jpg', 'download.jpg', 'download4.jpg', 'lake.jpg', 'Hill.jpg'].map(asset => (
+                  {['Taj_mahal.jpg', 'varanasi_ghats.jpg', 'kerala_backwaters.jpg', 'hampi_ruins.jpg', 'leh_ladakh.jpg', 'golden_temple.jpg', 'munnar_tea_gardens.jpg', 'mysore_palace.jpg', 'amer_fort.jpg', 'konark_sun_temple.jpg', 'ranthambore.jpg', 'victoria_memorial.jpg', 'Download3.jpg', 'download2.jpg', 'download.jpg', 'download4.jpg', 'lake.jpg', 'Hill.jpg'].map(asset => (
                     <button key={asset} type="button" onClick={() => setEditingDestination({...editingDestination, image: `/assets/destinations/${asset}`})} className="text-[10px] px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-md hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors">
                       {asset}
                     </button>

@@ -14,7 +14,7 @@ export const DESTINATIONS: AiDestination[] = [
     tag: "Historical", 
     desc: "Agra's iconic white marble mausoleum, a symbol of eternal love and a UNESCO World Heritage site.",
     location: "Agra, Uttar Pradesh",
-    image: "/assets/destinations/taj_mahal.jpg"
+    image: "/assets/destinations/Taj_mahal.jpg"
   },
   { 
     name: "Varanasi Ghats", 

@@ -259,6 +259,7 @@ export default function Ai() {
                 <p className="text-[11px] text-gray-400 leading-relaxed">{f.desc}</p>
               </div>
             ))}
+            
           </div>
 
           <section style={{ margin: "60px 0", padding: "40px", background: "linear-gradient(135deg,rgba(45,24,16,0.6),rgba(26,58,26,0.4))", borderRadius: "32px", border: "1px solid rgba(184,134,11,0.2)", textAlign: "center", backdropFilter: "blur(10px)" }}>
